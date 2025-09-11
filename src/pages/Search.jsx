@@ -1,11 +1,12 @@
-import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import Logo from "../assets/logo.png";
 
 export default function Search() {
   const APIKEY = "fa480c9";
   let currentMovies = [];
   const navigate = useNavigate();
+  const location = useLocation();
 
   async function fetchdata() {
     const loadingEl = document.getElementById("loading");
@@ -83,7 +84,6 @@ export default function Search() {
       )
       .join("");
 
-    // Attach click handlers to cards for navigation
     Array.from(resultsEl.querySelectorAll(".movie__card")).forEach((el) => {
       el.addEventListener("click", () => {
         const id = el.getAttribute("data-id");
@@ -94,6 +94,16 @@ export default function Search() {
       el.style.cursor = "pointer";
     });
   }
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const q = params.get("q") || "";
+    const input = document.getElementById("movieName");
+    if (input && q) {
+      input.value = q;
+      fetchdata();
+    }
+  }, [location.search]);
 
   return (
     <div>
@@ -111,7 +121,7 @@ export default function Search() {
         </div>
         <button className="btn__black no-drop">Join</button>
       </nav>
-
+      
       <div className="search__box">
         <input 
           type="text" 

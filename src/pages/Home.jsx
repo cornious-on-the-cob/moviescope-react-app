@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import Alien from "../assets/alien-romulus.jpeg";
 import Banner from "../assets/home-img.png";
@@ -8,6 +8,14 @@ import Gilded from "../assets/the-guilded-age.jpeg";
 import Timmy from "../assets/timothy.jpeg";
 
 export default function Home() {
+  const navigate = useNavigate();
+
+  function handleHomeSearch() {
+    const input = document.getElementById("homeSearchName");
+    const query = input ? input.value.trim() : "";
+    if (!query) return;
+    navigate(`/search?q=${encodeURIComponent(query)}`);
+  }
   return (
     <div>
       <nav className="nav__bar">
@@ -22,6 +30,21 @@ export default function Home() {
             Explore Movies
           </Link>
         </div>
+
+
+        <div className="nav__search">
+          <input
+            type="text"
+            id="homeSearchName"
+            placeholder="Search movies/shows"
+            onKeyDown={(e) => {
+              if (e.key === "Enter") handleHomeSearch();
+            }}
+          />
+          <button className="btn__black margin" onClick={handleHomeSearch}>Search</button>
+        </div>
+
+        
         <button className="btn__black no-drop">Join</button>
       </nav>
       
