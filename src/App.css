@@ -387,6 +387,7 @@ RESULTS
   align-items: center;
 }
 
+
 .movie__description {
   margin-left: 24px;
   display: flex;
@@ -394,10 +395,14 @@ RESULTS
   align-items: flex-start;
 }
 
-
 .movie-card__poster {
   border: 2px solid black;
   border-radius: 20px;
+  cursor: pointer;
+}
+
+.movie-card__poster:hover {
+transform: translateY(-10px);
 }
 
 .movie-card__title {
