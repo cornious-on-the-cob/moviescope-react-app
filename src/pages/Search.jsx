@@ -1,10 +1,11 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Logo from "../assets/logo.png";
 
 export default function Search() {
   const APIKEY = "fa480c9";
   let currentMovies = [];
+  const navigate = useNavigate();
 
   async function fetchdata() {
     const loadingEl = document.getElementById("loading");
@@ -64,13 +65,13 @@ export default function Search() {
     resultsEl.innerHTML = moviesToShow
       .map(
         (d) => `
-    <div class="movie__card">
+    <div class="movie__card" data-id="${d.imdbID}">
       <img
         src="${d.Poster !== "N/A" ? d.Poster : "placeholder.jpg"}"
         alt="${d.Title}"
         class="movie-card__poster"
       />
-      <div class="movie__description".
+      <div class="movie__description">
       <h4 class="movie-card__title">${d.Title} (${d.Year})</h4>
       <p class="movie-card__info"><strong>Actors:</strong> ${d.Actors}</p>
       <p class="movie-card__info"><strong>IMDb Rating:</strong> ${
@@ -81,6 +82,17 @@ export default function Search() {
   `
       )
       .join("");
+
+    // Attach click handlers to cards for navigation
+    Array.from(resultsEl.querySelectorAll(".movie__card")).forEach((el) => {
+      el.addEventListener("click", () => {
+        const id = el.getAttribute("data-id");
+        if (id) {
+          navigate(`/movie/${id}`);
+        }
+      });
+      el.style.cursor = "pointer";
+    });
   }
 
   return (

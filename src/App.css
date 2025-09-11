@@ -387,7 +387,6 @@ RESULTS
   align-items: center;
 }
 
-
 .movie__description {
   margin-left: 24px;
   display: flex;
@@ -395,9 +394,13 @@ RESULTS
   align-items: flex-start;
 }
 
-.movie-card__poster {
+.movie-card__poster,
+.movie__poster {
   border: 2px solid black;
   border-radius: 20px;
+}
+
+.movie-card__poster {
   cursor: pointer;
 }
 
@@ -408,6 +411,31 @@ transform: translateY(-10px);
 .movie-card__title {
   font-size: 30px;
   font-weight: bold;
+}
+
+.movie__header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.movie__meta {
+  margin-left: 24px;
+}
+
+.more__movie--details {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 36px 24px;
+}
+
+.movie__plot {
+  max-width: 600px;
+}
+
+.movie__ratings {
+  margin-left: 34px;
 }
 
 /* 
